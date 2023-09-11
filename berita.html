@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Berita Sekolah</title>
+		<link rel="icon" href="Logo.png" />
+		<script src="https://kit.fontawesome.com/de8de52639.js" crossorigin="anonymous"></script>
+		<style>
+			    body {
+			      margin: 0;
+			      padding: 0;
+			      background-color: #f4f4f4;
+			      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+			    }
+
+			    * {
+			      scroll-behavior: smooth;
+			      list-style: none;
+			      text-decoration: none;
+			    }
+
+			    /* bagian atas website */
+			    nav {
+			      background-color: #3498db;
+			      padding: 10px 20px;
+			      justify-content: space-between;
+			      position: relative;
+			    }
+
+			    nav::before {
+			      content: "";
+			      position: absolute;
+			      bottom: -4px;
+			      left: 0;
+			      width: 100%;
+			      height: 4px;
+			      background-color: #080808;
+			      transform: scaleY(1);
+			      z-index: -10;
+			      -webkit-transform: scaleY(1);
+			      -moz-transform: scaleY(1);
+			      -ms-transform: scaleY(1);
+			      -o-transform: scaleY(1);
+			    }
+
+			    /* bagian hamburger */
+			    .mukbang {
+			      overflow: hidden;
+			    }
+
+			    .gous {
+			      border-radius: 10px;
+			      -webkit-border-radius: 10px;
+			      -moz-border-radius: 10px;
+			      -ms-border-radius: 10px;
+			      -o-border-radius: 10px;
+			      background-color: #6d8e96;
+			    }
+
+			    .mukbang a {
+			      float: left;
+			      display: block;
+			      color: black;
+			      text-align: center;
+			      padding: 10px 16px;
+			      text-decoration: none;
+			      font-size: 19px;
+			    }
+
+			    .mukbang a:hover {
+			      text-decoration: underline;
+			      color: red;
+			    }
+
+			    .mukbang i {
+			      font-size: 40px;
+			      color: black;
+			      float: right;
+			      padding: 10px 10px;
+			    }
+
+			    .mukbang i:hover {
+			      color: red;
+			    }
+
+			    .mukbang .icon {
+			      display: none;
+			    }
+
+			    .logo img {
+			      width: 70px;
+			    }
+
+			    .container {
+			      max-width: 1200px;
+			      margin: 0 auto;
+			      padding: 20px;
+			      display: flex;
+			      flex-wrap: wrap;
+			      justify-content: space-between;
+			    }
+
+			    .article {
+			      background-color: #fff;
+			      border: 1px solid #ddd;
+			      border-radius: 5px;
+			      padding: 20px;
+			      margin-bottom: 20px;
+			      width: 100%;
+			      box-shadow: 7px 10px 15px #2c373a;
+			    }
+
+			    .article img {
+			      width: 100%;
+			    }
+
+			    .article h2 {
+			      margin-top: 0;
+			    }
+
+			    /* bagian scroll ke atas*/
+			    #scrollBtn {
+			      display: none;
+			      position: fixed;
+			      bottom: 20px;
+			      right: 80%;
+			      font-size: 18px;
+			      border: none;
+			      outline: none;
+			      background-color: #555;
+			      color: white;
+			      cursor: pointer;
+			      padding: 15px;
+			      border-radius: 50%;
+			    }
+
+			    #scrollBtn:hover {
+			      background-color: #777;
+			      transform: translateY(-5px);
+			      -webkit-transform: translateY(-5px);
+			      -moz-transform: translateY(-5px);
+			      -ms-transform: translateY(-5px);
+			      -o-transform: translateY(-5px);
+			      box-shadow: 0 5px 2px #555;
+			    }
+
+			    footer {
+			      display: flex;
+			      background-color: #3498db;
+			      padding: 10px 20px;
+			    }
+
+			    .wrapper-logo img {
+			      width: 15%;
+			      height: auto;
+			      padding-right: 20px;
+			      float: right;
+			    }
+
+			    .logo-nav {
+			      display: flex;
+			      margin: 0;
+			      padding: 0;
+			      align-items: center;
+			    }
+
+			    .logo-nav h1 {
+			      color: #fff;
+			      font-weight: bold;
+			    }
+
+			    /* tombol dark mode  */
+			    .switch {
+			      font-size: 17px;
+			      position: relative;
+			      display: inline-block;
+			      width: 3.5em;
+			      height: 2em;
+			    }
+
+			    .switch input {
+			      opacity: 0;
+			      width: 0;
+			      height: 0;
+			    }
+
+			    .slider {
+			      position: absolute;
+			      cursor: pointer;
+			      inset: 0;
+			      border: 2px solid #414141;
+			      border-radius: 50px;
+			      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			    }
+
+			    .slider:before {
+			      position: absolute;
+			      content: "";
+			      height: 1.4em;
+			      width: 1.4em;
+			      left: 0.2em;
+			      bottom: 0.2em;
+			      background-color: white;
+			      border-radius: inherit;
+			      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+			      -webkit-transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+			      -moz-transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+			      -ms-transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+			      -o-transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+			    }
+
+			    .switch input:checked + .slider {
+			      box-shadow: 0 0 20px rgba(9, 117, 241, 0.8);
+			      border: 2px solid #0974f1;
+			    }
+
+			    .switch input:checked + .slider:before {
+			      transform: translateX(1.5em);
+			    }
+
+			    /* Dark Mode */
+			    .darkmode {
+			      background-color: #07181c;
+			    }
+			    .darkmode .container .article{
+			      background-color: #3e4f54;
+			      color: #ffffff;
+			    }
+			    .darkmode i {
+			      color: white;
+			    }
+			    .darkmode .mukbang a {
+			      color: white;
+			    }
+			    .darkmode .gous {
+			      background-color: #212121;
+			    }
+			    .darkmode .mukbang a:hover {
+			      color: red;
+			      text-decoration: underline;
+			    }
+			    .darkmode nav {
+			      background-color: brown;
+			    }
+			    .darkmode nav::before {
+			      background-color: #fff;
+			    }
+
+			    /* untuk responsif web */
+			    @media (max-width: 768px) {
+			      .mukbang a:not(:first-child) {
+			        display: none;
+			      }
+			      .mukbang a,
+			      i {
+			        float: right;
+			        display: block;
+			      }
+			      .mukbang.responsive a.icon {
+			        position: absolute;
+			        right: 0;
+			        top: 0;
+			      }
+			      .mukbang.responsive a {
+			        float: none;
+			        display: block;
+			        text-align: center;
+			      }
+			      .mukbang .switch {
+			        margin-left: -35px;
+			      }
+			      .logo-nav {
+			        justify-content: center;
+			      }
+			      .layout-buttons .layout-button {
+			        display: none;
+			      }
+			    }
+			   
+
+			    /* untuk pilihan artikel */
+			.layout-buttons {
+			  display: flex;
+			  justify-content: center;
+			  margin-bottom: 20px;
+			}
+
+			.layout-button {
+			  border: none;
+			  background-color: #3498db;
+			  color: white;
+			  padding: 10px 20px;
+			  margin: 0 10px;
+			  cursor: pointer;
+			}
+
+			/* Gaya tata dari pemilihan artikel */
+			.container.horizontal {
+			  			      max-width: 1200px;
+			      margin: 0 auto;
+			      padding: 20px;
+			      display: flex;
+			      flex-wrap: wrap;
+			      justify-content: space-between;
+			}
+
+			.container.vertical {
+			  			        display: flex;
+			        justify-content: space-between;
+			}
+
+			.article.horizontal {
+			      border: 1px solid #ddd;
+			      border-radius: 5px;
+			      padding: 20px;
+			      margin-bottom: 20px;
+			      width: 100%;
+			      box-shadow: 7px 10px 15px #2c373a;
+			}
+
+			.article.vertical {
+			  			        width: 40%;
+			        margin-bottom: 20px;
+			}
+
+			.article.vertical:nth-child(odd) {
+			  order: 1;
+			}
+
+
+			    @media (min-width: 768px) {
+			      #scrollBtn {
+			        right: 90%;
+			      }
+			      .wrapper-logo img {
+			        width: 10%;
+			        height: auto;
+			        padding-right: 20px;
+			        float: right;
+			      }
+			      .logo-nav h1 {
+			        align-items: left;
+			        margin-right: 82%;
+			      }
+			      .mukbang i {
+			        display: none;
+			      }
+			      .mukbang a {
+			        float: right;
+			        background-color: #3498db;
+			      }
+			      .darkmode .mukbang a {
+			        color: white;
+			        background-color: brown;
+			      }
+			      .mukbang .dark-mode-toggle {
+			        float: left;
+			      }
+			    }
+
+			    @media (max-width: 480px) {
+			      .article {
+			        width: 100%;
+			      }
+			    }
+		</style>
+	</head>
+	<body>
+		<!-- bagian atas/navigasi -->
+		<nav>
+			<div class="logo-nav">
+				<h1>Berita & Acara</h1>
+			</div>
+			<div class="mukbang" id="myNavbar">
+				<div class="gous">
+					<i class="fa-solid fa-bars" onclick="toggleNavbar()" class="icon"></i>
+					<a href="#">Beranda</a>
+					<a href="#">Lainnya</a>
+					<a class="dark-mode-toggle">
+						<label class="switch">
+							<input type="checkbox" />
+							<span class="slider" onclick="darkmode()" id="mode"></span>
+						</label>
+					</a>
+				</div>
+			</div>
+		</nav>
+		<!-- bagian conten -->
+		<div class="container">
+			<div class="article">
+				<h2>Judul Artikel Pertama</h2>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente iusto commodi nisi. Minus, voluptate ullam maiores aspernatur debitis fugit ipsum rem odit at excepturi nostrum, iste expedita! Libero, dicta
+					reprehenderit!
+				</p>
+			</div>
+			<div class="article">
+				<h2>Judul Artikel Kedua</h2>
+				<img src="Logo.png" alt="logosmk" />
+				<p>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit rem culpa ab quas impedit doloremque, autem nulla magnam illo quia repellat quasi totam vero voluptatibus necessitatibus ipsam aliquid dolore
+					praesentium?
+				</p>
+			</div>
+			<div class="article">
+				<h2>Judul Artikel Ketiga</h2>
+				<p>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas culpa nesciunt aperiam tempore ut eligendi doloribus soluta, qui, delectus quibusdam numquam temporibus? Fugit rerum facere perspiciatis aperiam nostrum
+					qui in.
+				</p>
+			</div>
+			<div class="article">
+				<h2>Judul Artikel keempat</h2>
+				<p>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque aut dignissimos quae aliquid beatae, labore quam tempora voluptatem, harum ad laborum quis velit. Culpa tempora saepe repellendus optio blanditiis
+					deleniti!
+				</p>
+			</div>
+			<!-- Tambahkan yang lain di sini -->
+		</div>
+		<!-- Tambahkan tombol pilihan tata letak -->
+		<div class="layout-buttons">
+			<button class="layout-button" id="horizontal-layout">Tata Letak Mendatar</button>
+			<button class="layout-button" id="vertical-layout">Tata Letak Kotak</button>
+		</div>
+		<!-- bagian bawah/footer -->
+		<footer>
+			<div class="wrapper-logo">
+				<img src="Logo.png" title="logosmk" alt="logosmk" />
+			</div>
+		</footer>
+
+		<button onclick="scrollToTo()" id="scrollBtn" title="Naik ke atas">Top</button>
+
+		<script>
+			    window.onscroll = function () {
+			      scrollFunction();
+			    };
+
+			    function scrollFunction() {
+			      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+			        document.getElementById("scrollBtn").style.display = "block";
+			      } else {
+			        document.getElementById("scrollBtn").style.display = "none";
+			      }
+			    }
+
+			    // up ke atas
+			    function scrollToTo() {
+			      document.body.scrollTop = 0;
+			      document.documentElement.scrollTop = 0;
+			    }
+
+			    // navbar hamburger
+			    function toggleNavbar() {
+			      var respon = document.getElementById("myNavbar");
+			      if (respon.className === "mukbang") {
+			        respon.className += " responsive";
+			      } else {
+			        respon.className = "mukbang";
+			      }
+			    }
+
+			    // nge test
+			    console.log("test cuy");
+
+			    // dark mode
+			    function darkmode() {
+			      const mode = document.getElementById("mode");
+			      const body = document.body;
+
+			      body.classList.toggle("darkmode");
+			    }
+
+
+			// untuk mendatar
+			function setHorizontalLayout() {
+			  const container = document.querySelector(".container");
+			  const articles = document.querySelectorAll(".article");
+
+			  container.classList.remove("vertical");
+			  container.classList.add("horizontal");
+
+			  articles.forEach((article) => {
+			    article.classList.remove("vertical");
+			    article.classList.add("horizontal");
+			  });
+			}
+
+			// untuk kotak
+			function setVerticalLayout() {
+			  const container = document.querySelector(".container");
+			  const articles = document.querySelectorAll(".article");
+
+			  container.classList.remove("horizontal");
+			  container.classList.add("vertical");
+
+			  articles.forEach((article) => {
+			    article.classList.remove("horizontal");
+			    article.classList.add("vertical");
+			  });
+			}
+
+			// pemilihan tombol/fumgsi pemilihan tombol
+			document.getElementById("horizontal-layout").addEventListener("click", setHorizontalLayout);
+			document.getElementById("vertical-layout").addEventListener("click", setVerticalLayout);
+		</script>
+	</body>
+</html>
